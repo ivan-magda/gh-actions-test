@@ -1,0 +1,23 @@
+name: Get Current Branch Name
+
+on:
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: head_ref
+        run: echo "${{ github.head_ref }}"
+        
+      - name: ref_name
+        run: echo "${{ github.ref_name }}"
+        
+      - name: ref
+        run: echo "${{ github.ref }}"
