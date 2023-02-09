@@ -1,6 +1,7 @@
 name: Get Current Branch Name
 
 on:
+  push:
   pull_request:
     types:
       - closed
