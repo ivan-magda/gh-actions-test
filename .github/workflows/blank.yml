@@ -15,8 +15,6 @@ jobs:
   test:
     runs-on: macos-12
     steps:
-      - name: Gradle Wrapper Caches
-        run: du -sh ~/.gradle/wrapper
       - name: Kotlin/Native Compiler Caches
         run: du -sh ~/.konan
       - name: Cocoapods Repository Caches
