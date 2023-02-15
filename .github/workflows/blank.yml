@@ -7,7 +7,25 @@ on:
       - closed
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
+  test:
+    runs-on: macos-12
+    steps:
+      - name: Gradle Caches
+        run: du -sh ~/.gradle/caches
+      - name: Gradle Wrapper Caches
+        run: du -sh ~/.gradle/wrapper
+      - name: Kotlin/Native Compiler Caches
+        run: du -sh ~/.konan
+      - name: Cocoapods Repository Caches
+        run: du -sh ~/.cocoapods
+      - name: Cocoapods Caches
+        run: du -sh ~/Library/Caches/CocoaPods
+        
   cleanup:
     runs-on: ubuntu-latest
     steps:
