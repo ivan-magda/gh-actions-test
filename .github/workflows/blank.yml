@@ -15,8 +15,6 @@ jobs:
   test:
     runs-on: macos-12
     steps:
-      - name: Cocoapods Repository Caches
-        run: du -sh ~/.cocoapods
       - name: Cocoapods Caches
         run: du -sh ~/Library/Caches/CocoaPods
         
