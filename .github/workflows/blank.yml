@@ -1,12 +1,30 @@
 name: Get Current Branch Name
 
 on:
+  push:
   pull_request:
     types:
       - closed
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
+  pod:
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3    
+      - name: Install Pods
+        working-directory: './GhActionsTest'
+        run: pod install
+      - name: Size cocoapods
+        run: du -sh ~/.cocoapods
+      - name: Size cocoapods caches
+        run: du -sh ~/Library/Caches/CocoaPods
+    
   cleanup:
     runs-on: ubuntu-latest
     steps:

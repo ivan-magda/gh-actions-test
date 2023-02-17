@@ -1,0 +1,11 @@
+install! "cocoapods", :deterministic_uuids => false
+source "https://cdn.cocoapods.org/"
+
+inhibit_all_warnings!
+use_frameworks!
+
+target 'GhActionsTest' do
+  platform :ios, "16.2"
+
+  pod "SwiftLint", "0.50.1"
+end
