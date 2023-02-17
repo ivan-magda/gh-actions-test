@@ -11,7 +11,20 @@ defaults:
   run:
     shell: bash
 
-jobs:   
+jobs:
+  pod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3    
+      - name: Install Pods
+        working-directory: './GhActionsTest'
+        run: pod install
+      - name: Size cocoapods
+        run: du -sh ~/.cocoapods
+      - name: Size cocoapods caches
+        run: du -sh ~/Library/Caches/CocoaPods
+    
   cleanup:
     runs-on: ubuntu-latest
     steps:
