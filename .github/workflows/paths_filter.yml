@@ -1,0 +1,36 @@
+name: Test conditionally run actions based on pushed commits
+
+on:
+  push:
+    branches: # Push to the following branches will trigger the workflow
+      - main
+      - develop
+      - release/**
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        # Use context to get the branch where commits were pushed.
+        # If there is only one long-lived branch (e.g. master),
+        # you can specify it directly.
+        # If it's not configured, the repository default branch is used.
+        base: ${{ github.ref }}
+        filters: |
+          swift:
+            - '**/*.swift'
+
+    # run only if 'swift' files were changed
+    - name: Swift
+      if: steps.filter.outputs.swift == 'true'
+      run: echo "Swift files were changed"
+    
+    # run only if 'swift' files were not changed
+    - name: Swift
+      if: steps.filter.outputs.swift == 'false'
+      run: echo "Swift files were not changed"
