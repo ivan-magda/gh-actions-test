@@ -29,7 +29,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git fetch origin develop -v
-          git checkout develop -v
+          git checkout develop
           git pull origin develop -v
           git merge --no-ff --no-edit origin/main -v
           git push origin develop -v
