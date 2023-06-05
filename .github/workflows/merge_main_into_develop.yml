@@ -31,4 +31,5 @@ jobs:
       
       - name: git
         run: |
-          git branch --show-current
+          echo git branch --show-current
+          echo git rev-parse --abbrev-ref HEAD
