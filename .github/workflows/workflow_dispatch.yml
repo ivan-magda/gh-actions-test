@@ -12,6 +12,8 @@ on:
         - info
         - warning
         - debug
+  schedule:
+    - cron: "* * * * *"
 
 jobs:
   log-the-inputs:
