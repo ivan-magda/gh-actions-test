@@ -21,3 +21,4 @@ jobs:
           echo "Log level: $LEVEL"
         env:
           LEVEL: ${{ inputs.logLevel }}
+      - run: echo "${{ github.event_name }}"
