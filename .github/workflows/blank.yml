@@ -39,3 +39,6 @@ jobs:
         
       - name: ref
         run: echo "${{ github.ref }}"
+
+      - name: actor
+        run: echo "${{ github.actor }}"
