@@ -42,6 +42,32 @@ jobs:
           echo "✅  Signing identity verified"
 
       - name: Prepare App Store Connect API key
+        id: api-key-setup
         run: |
+          set -e
+          
           mkdir -p "$HOME/private_keys"
-          echo "${{ secrets.APPLE_API_KEY_BASE64 }}" | base64 --decode > "$HOME/private_keys/AuthKey.p8"
+          API_KEY_PATH="$HOME/private_keys/AuthKey.p8"
+          
+          # Decode and save the API key
+          echo "${{ secrets.APPLE_API_KEY_BASE64 }}" | base64 --decode > "$API_KEY_PATH"
+          
+          if [ ! -f "$API_KEY_PATH" ]; then
+            echo "❌ Failed to create API key file at $API_KEY_PATH" >&2
+            exit 1
+          fi
+          
+          echo "api_key_path=$API_KEY_PATH" >> $GITHUB_OUTPUT
+          echo "✅ App Store Connect API key prepared successfully at $API_KEY_PATH"
+          
+      - name: Build, Sign & Notarize
+        env:
+          APPLE_IDENTITY: ${{ secrets.APPLE_IDENTITY }}
+          APPLE_API_KEY: ${{ steps.api-key-setup.outputs.api_key_path }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+        run: |
+          echo "🔧  Using API key at: $APPLE_API_KEY"
+          echo "🔧  Using identity: $APPLE_IDENTITY"
+          echo "🔧  Using API key ID: $APPLE_API_KEY_ID"
+          echo "🔧  Using API issuer: $APPLE_API_ISSUER"
