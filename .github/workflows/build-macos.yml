@@ -25,7 +25,17 @@ jobs:
           security set-keychain-settings -lut 7200 build.keychain
 
       - name: Verify signing identity
-        run: security find-identity -v -p codesigning
+        run: |
+          set -e
+          # Show every code-signing identity in the current keychain
+          security find-identity -v -p codesigning
+
+          # Fail the job if the expected identity string is missing
+          if ! security find-identity -v -p codesigning | grep -Fq "${{ secrets.APPLE_IDENTITY }}"; then
+            echo "❌  Expected signing identity not found in keychain" >&2
+            exit 1
+          fi
+          echo "✅  Signing identity verified"
 
       - name: Prepare App Store Connect API key
         run: |
