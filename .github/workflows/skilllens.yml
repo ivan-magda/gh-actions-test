@@ -25,6 +25,6 @@ jobs:
       ${{ github.event_name != 'issue_comment' || github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-      - uses: hyperskill/skilllens-action@v1
+      - uses: hyperskill/skilllens-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
