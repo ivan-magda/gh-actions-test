@@ -25,7 +25,6 @@ jobs:
     steps:
       - uses: hyperskill/skilllens-action@main
         with:
-          enable-debug: true
           fail-on-proxy-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
